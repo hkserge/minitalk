@@ -2,30 +2,37 @@ CC			=	clang
 
 CFLAGS		=	-Wall -Wextra -Werror -g
 
-NAME		=	server
+SRCS_SERVER		=	srcs/server.c
 
-SRCS		=	srcs/server.c
+SRCS_CLIENT		=	srcs/client.c
 
 HEADERS		=	-I includes
 
-OBJECTS		=	${SRCS:.c=.o}
+OBJECTS_SERVER		=	${SRCS_SERVER:.c=.o}
 
-all:			$(NAME)
+OBJECTS_CLIENT		=	${SRCS_CLIENT:.c=.o}
+
+all:			server client
 
 .c.o:
 				@${CC} ${CFLAGS} ${HEADERS} -c $< -o ${<:.c=.o}
 
-$(NAME) :		${OBJECTS}
-				@${CC} ${CFLAGS} ${OBJECTS} ${HEADERS} -o ${NAME}
+server :		${OBJECTS_SERVER}
+				@${CC} ${CFLAGS} ${OBJECTS_SERVER} ${HEADERS} -o server
 				@printf "\033[92mserver compiled\n\033[0m"
 
+client :		${OBJECTS_CLIENT}
+				@${CC} ${CFLAGS} ${OBJECTS_CLIENT} ${HEADERS} -o client
+				@printf "\033[92mclient compiled\n\033[0m"
 clean:
 
-				@rm -rf ${OBJECTS}
+				@rm -rf ${OBJECTS_SERVER}
+				@rm -rf ${OBJECTS_CLIENT}
 				@printf "\033[92mclean done\n\033[0m"
 
 fclean:			clean
-				@rm -rf $(NAME)
+				@rm -rf server
+				@rm -rf client
 
 re:				fclean all
 
