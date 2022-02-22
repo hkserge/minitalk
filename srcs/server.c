@@ -6,7 +6,7 @@
 /*   By: khelegbe <khelegbe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 19:20:54 by khelegbe          #+#    #+#             */
-/*   Updated: 2022/02/20 18:58:49 by khelegbe         ###   ########.fr       */
+/*   Updated: 2022/02/22 18:47:54 by khelegbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	print_str(int byte)
 	}
 }
 
-void	handler(int n)
+void	handler(int n, )
 {
 	if (n == SIGUSR1)
 		print_str(0);
@@ -50,12 +50,15 @@ void	handler(int n)
 
 int	main(void)
 {
-	int	pid;
+	int					pid;
+	struct sigaction	sa;
 
 	pid = getpid();
+	sa.sa_flags = SA_SIGINFO;
+	sa.sa_sigaction = &handler;
 	printf("SERVER PID = %d\n", pid);
-	signal(SIGUSR1, &handler);
-	signal(SIGUSR2, &handler);
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
 	while (1)
 		pause();
 	return (0);

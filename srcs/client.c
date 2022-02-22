@@ -6,7 +6,7 @@
 /*   By: khelegbe <khelegbe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 19:20:51 by khelegbe          #+#    #+#             */
-/*   Updated: 2022/02/20 19:01:23 by khelegbe         ###   ########.fr       */
+/*   Updated: 2022/02/22 16:07:41 by khelegbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,6 @@
 #include <stdio.h>
 #include <limits.h>
 #include <unistd.h>
-
-// 10
-// 0
-// -10
-// -0
-// INT_MIN
-// INT_MAX
 
 int	ft_atoi(char *str)
 {
