@@ -6,22 +6,20 @@
 /*   By: khelegbe <khelegbe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 19:20:54 by khelegbe          #+#    #+#             */
-/*   Updated: 2022/02/22 18:47:54 by khelegbe         ###   ########.fr       */
+/*   Updated: 2022/02/24 20:24:26 by khelegbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <sys/types.h>
-#include <unistd.h>
-#include <signal.h>
+#include "minitalk.h"
 
-void	print_str(int byte)
+void	print_str(int byte, int pid)
 {
 	static char	c = 0;
 	static int	i = 0;
 	static int	j = 0;
-	static char	buffer[10000];
+	static char	buffer[2048];
 
+	(void)pid;
 	c |= byte << i++;
 	if (i == 8)
 	{
@@ -37,22 +35,27 @@ void	print_str(int byte)
 			buffer[j++] = c;
 		c = 0;
 		i = 0;
+		// kill(pid, SIGUSR1);
 	}
 }
 
-void	handler(int n, )
+void	handler(int sig, siginfo_t *info, void *context)
 {
-	if (n == SIGUSR1)
-		print_str(0);
-	else if (n == SIGUSR2)
-		print_str(1);
+	(void)context;
+	if (sig == SIGUSR1)
+		print_str(0, info->si_pid);
+	else if (sig == SIGUSR2)
+		print_str(1, info->si_pid);
 }
 
-int	main(void)
+int	main(int argc, char *argv[])
 {
 	int					pid;
 	struct sigaction	sa;
 
+	(void)argv;
+	if (argc > 1)
+		return (1);
 	pid = getpid();
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = &handler;
