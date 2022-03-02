@@ -6,7 +6,7 @@
 /*   By: khelegbe <khelegbe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 19:20:51 by khelegbe          #+#    #+#             */
-/*   Updated: 2022/02/24 20:24:30 by khelegbe         ###   ########.fr       */
+/*   Updated: 2022/03/02 20:48:27 by khelegbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,24 @@ void	send_char(int pid, char c)
 	}
 }
 
+int	client_pid()
+{
+
+}
+
 int	main(int argc, char *argv[])
 {
 	int	pid;
 	int	i;
+	// struct sigaction	sa;
 
 	i = 0;
 	if (argc != 3)
+	{
+		ft_putendl_fd("Error.", STDOUT_FILENO);
+		ft_putendl_fd(BAD_ARGUMENT, STDOUT_FILENO);
 		return (1);
+	}
 	pid = ft_atoi(argv[1]);
 	if (pid <= 0)
 		return (1);

@@ -2,9 +2,9 @@ CC			=	clang
 
 CFLAGS		=	-Wall -Wextra -Werror -g
 
-SRCS_SERVER		=	srcs/server.c
+SRCS_SERVER		=	srcs/server.c srcs/utils.c
 
-SRCS_CLIENT		=	srcs/client.c
+SRCS_CLIENT		=	srcs/client.c srcs/utils.c
 
 HEADERS		=	-I includes
 
