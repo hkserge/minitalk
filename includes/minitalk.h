@@ -6,7 +6,7 @@
 /*   By: khelegbe <khelegbe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 20:16:15 by khelegbe          #+#    #+#             */
-/*   Updated: 2022/03/02 20:22:42 by khelegbe         ###   ########.fr       */
+/*   Updated: 2022/03/12 16:18:37 by khelegbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <limits.h>
 # include <unistd.h>
+# include <stdlib.h>
 
 /* CONSTANTS */
 

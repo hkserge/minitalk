@@ -6,7 +6,7 @@
 /*   By: khelegbe <khelegbe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 19:20:54 by khelegbe          #+#    #+#             */
-/*   Updated: 2022/03/02 20:23:56 by khelegbe         ###   ########.fr       */
+/*   Updated: 2022/03/12 16:53:09 by khelegbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	print_str(int byte, int pid)
 		c = 0;
 		i = 0;
 	}
+	kill(pid, SIGUSR1);
+	usleep(1000);
 }
 
 void	handler(int sig, siginfo_t *info, void *context)
@@ -45,13 +47,10 @@ void	handler(int sig, siginfo_t *info, void *context)
 		print_str(0, info->si_pid);
 	else if (sig == SIGUSR2)
 		print_str(1, info->si_pid);
-	// kill(pid, SIGUSR1);
-
 }
 
 int	main(int argc, char *argv[])
 {
-	int					pid;
 	struct sigaction	sa;
 
 	(void)argv;
@@ -61,11 +60,12 @@ int	main(int argc, char *argv[])
 		ft_putendl_fd(BAD_ARGUMENT, STDOUT_FILENO);
 		return (1);
 	}
-	pid = getpid();
-	sa.sa_flags = SA_SIGINFO;
+	// sigemptyset(&sa.sa_mask);
+	sa.sa_flags = SA_SIGINFO | SA_RESTART;
+	// sigemptyset(&sa.sa_mask);
 	sa.sa_sigaction = &handler;
 	ft_putendl_fd("SERVER PID:", STDOUT_FILENO);
-	ft_putnbr_fd(pid, STDOUT_FILENO);
+	ft_putnbr_fd(getpid(), STDOUT_FILENO);
 	write(STDOUT_FILENO, "\n", 1);
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);

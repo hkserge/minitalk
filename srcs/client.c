@@ -6,7 +6,7 @@
 /*   By: khelegbe <khelegbe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 19:20:51 by khelegbe          #+#    #+#             */
-/*   Updated: 2022/03/02 20:48:27 by khelegbe         ###   ########.fr       */
+/*   Updated: 2022/03/12 17:02:07 by khelegbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,17 @@ void	send_char(int pid, char c)
 	}
 }
 
-int	client_pid()
+void	cli_handler(int sig)
 {
-
+	if (sig == SIGUSR1)
+		exit(1);
 }
 
 int	main(int argc, char *argv[])
 {
-	int	pid;
-	int	i;
-	// struct sigaction	sa;
+	int					pid;
+	int					i;
+	struct sigaction	sa;
 
 	i = 0;
 	if (argc != 3)
@@ -51,6 +52,8 @@ int	main(int argc, char *argv[])
 		ft_putendl_fd(BAD_ARGUMENT, STDOUT_FILENO);
 		return (1);
 	}
+	// sa.sa_flags = SA_RESTART;
+	sa.sa_handler = &cli_handler;
 	pid = ft_atoi(argv[1]);
 	if (pid <= 0)
 		return (1);
