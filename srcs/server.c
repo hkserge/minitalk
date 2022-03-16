@@ -6,53 +6,23 @@
 /*   By: khelegbe <khelegbe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 19:20:54 by khelegbe          #+#    #+#             */
-/*   Updated: 2022/03/16 16:23:46 by khelegbe         ###   ########.fr       */
+/*   Updated: 2022/03/16 18:04:54 by khelegbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
-#include <stdio.h>
 
-// void	print_str(int byte, int pid)
-// {
-// 	static char	c = 0;
-// 	static int	i = 0;
-// 	static int	j = 0;
-// 	static char	buffer[2048];
-
-// 	(void)pid;
-// 	c |= byte << i++;
-// 	if (i == 8)
-// 	{
-// 		if (c == '\0')
-// 		{
-// 			buffer[j++] = '\n';
-// 			buffer[j] = '\0';
-// 			write(1, buffer, j);
-// 			buffer[0] = '\0';
-// 			j = 0;
-// 		}
-// 		else
-// 			buffer[j++] = c;
-// 		c = 0;
-// 		i = 0;
-// 	}
-// 	printf("CLI PID : %d\n", pid);
-// 	usleep(500);
-	// kill(pid, SIGUSR1);
-// }
-
-static void	print_str(int byte_received, int pid)
+static void	print_str(int byte, int pid)
 {
 	static int		bit = 0;
 	static int		tmp = 0;
 
-	tmp |= (byte_received << bit);
+	tmp |= (byte << bit);
 	if (tmp < 0 || tmp > 255)
 	{
 		tmp = 0;
 		bit = 0;
-		write(1, "\nError during communication\n", 29);
+		print_error(COM_ERROR);
 		usleep(500);
 		kill(pid, SIGUSR2);
 	}
@@ -65,7 +35,6 @@ static void	print_str(int byte_received, int pid)
 		bit = 0;
 		tmp = 0;
 	}
-	// printf("CLI PID : %d\n", pid);
 	usleep(500);
 	kill(pid, SIGUSR1);
 }
@@ -86,8 +55,7 @@ int	main(int argc, char *argv[])
 	(void)argv;
 	if (argc > 1)
 	{
-		ft_putendl_fd("Error.", STDOUT_FILENO);
-		ft_putendl_fd(BAD_ARGUMENT, STDOUT_FILENO);
+		print_error(BAD_ARGUMENT);
 		return (1);
 	}
 	sigemptyset(&sa.sa_mask);
