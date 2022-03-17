@@ -6,7 +6,7 @@
 /*   By: khelegbe <khelegbe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 19:20:51 by khelegbe          #+#    #+#             */
-/*   Updated: 2022/03/17 16:05:37 by khelegbe         ###   ########.fr       */
+/*   Updated: 2022/03/17 18:14:49 by khelegbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	main(int argc, char *argv[])
 	usleep(1000);
 	if (pid <= 0)
 	{
-		print_error("Bad PID. Must contain digits only");
+		print_error(BAD_PID);
 		return (1);
 	}
 	while (argv[2][i])
