@@ -6,7 +6,7 @@
 /*   By: khelegbe <khelegbe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 20:16:15 by khelegbe          #+#    #+#             */
-/*   Updated: 2022/03/16 17:45:36 by khelegbe         ###   ########.fr       */
+/*   Updated: 2022/03/17 15:32:17 by khelegbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 void	ft_putendl_fd(char *s, int fd);
 void	print_error(char *str);
 void	ft_putnbr_fd(int n, int fd);
-int		ft_atoi(char *str);
+int		ft_atoi(const char *nptr);
 
 /* server.c */
 

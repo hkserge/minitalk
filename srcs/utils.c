@@ -6,7 +6,7 @@
 /*   By: khelegbe <khelegbe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 20:21:29 by khelegbe          #+#    #+#             */
-/*   Updated: 2022/03/16 17:42:10 by khelegbe         ###   ########.fr       */
+/*   Updated: 2022/03/17 16:02:35 by khelegbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,25 +65,27 @@ void	ft_putnbr_fd(int n, int fd)
 		ft_putchar_fd(nbr % 10 + '0', fd);
 }
 
-int	ft_atoi(char *str)
+int	ft_atoi(const char *nptr)
 {
-	int	i;
-	int	result;
 	int	sign;
+	int	res;
 
-	i = 0;
-	result = 0;
 	sign = 1;
-	if (str[i] == '-')
-		sign = -1;
-	while (str[i] != '\0')
+	res = 0;
+	while ((*nptr >= 9 && *nptr <= 13) || *nptr == ' ')
+		nptr++;
+	if (*nptr == '+' || *nptr == '-')
 	{
-		if (str[i] >= '0' && str[i] <= '9')
-		{
-			result *= 10;
-			result += str[i] - '0';
-		}
-		i++;
+		if (*nptr == '-')
+			sign = -1;
+		nptr++;
 	}
-	return (result * sign);
+	while (*nptr >= '0' && *nptr <= '9')
+	{
+		res = res * 10 + (*nptr - '0');
+		nptr++;
+	}
+	if (*nptr)
+		return (0);
+	return (res * sign);
 }

@@ -6,7 +6,7 @@
 /*   By: khelegbe <khelegbe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 19:20:51 by khelegbe          #+#    #+#             */
-/*   Updated: 2022/03/16 18:07:23 by khelegbe         ###   ########.fr       */
+/*   Updated: 2022/03/17 16:05:37 by khelegbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ void	send_char(int pid, char c)
 	{
 		to_send = (c >> i++) & 1;
 		if (kill(pid, SIGUSR1 + (to_send * 2)) == -1)
+		{
 			print_error("Error signal.");
+			exit(1);
+		}
 		pause();
 	}
 }
@@ -50,9 +53,12 @@ int	main(int argc, char *argv[])
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
 	pid = ft_atoi(argv[1]);
-	usleep(100);
+	usleep(1000);
 	if (pid <= 0)
+	{
+		print_error("Bad PID. Must contain digits only");
 		return (1);
+	}
 	while (argv[2][i])
 		send_char(pid, argv[2][i++]);
 	send_char(pid, '\0');
