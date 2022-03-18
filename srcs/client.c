@@ -6,11 +6,12 @@
 /*   By: khelegbe <khelegbe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 19:20:51 by khelegbe          #+#    #+#             */
-/*   Updated: 2022/03/17 18:14:49 by khelegbe         ###   ########.fr       */
+/*   Updated: 2022/03/18 14:11:21 by khelegbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
+#include <stdio.h>
 
 void	send_char(int pid, char c)
 {
@@ -21,6 +22,8 @@ void	send_char(int pid, char c)
 	while (i < 8)
 	{
 		to_send = (c >> i++) & 1;
+		usleep(100);
+		printf("cli to serv %d\n", pid);
 		if (kill(pid, SIGUSR1 + (to_send * 2)) == -1)
 		{
 			print_error("Error signal.");
@@ -53,12 +56,12 @@ int	main(int argc, char *argv[])
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
 	pid = ft_atoi(argv[1]);
-	usleep(1000);
 	if (pid <= 0)
 	{
 		print_error(BAD_PID);
 		return (1);
 	}
+	usleep(1000);
 	while (argv[2][i])
 		send_char(pid, argv[2][i++]);
 	send_char(pid, '\0');
