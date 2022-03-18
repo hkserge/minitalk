@@ -6,12 +6,11 @@
 /*   By: khelegbe <khelegbe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 19:20:54 by khelegbe          #+#    #+#             */
-/*   Updated: 2022/03/18 15:17:16 by khelegbe         ###   ########.fr       */
+/*   Updated: 2022/03/18 15:57:19 by khelegbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
-#include <stdio.h>
 
 static void	print_str(int byte, int pid)
 {
